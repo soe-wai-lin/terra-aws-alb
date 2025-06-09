@@ -6,7 +6,7 @@
 crash.log
 
 # Terraform variable files (can contain secrets)
-*.tfvars
+# *.tfvars
 *.tfvars.json
 
 # Plan output

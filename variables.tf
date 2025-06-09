@@ -1,5 +1,4 @@
 variable "aws_profile" {
-  default = "profile1"
   type = string
   description = "Check this profile name in ~/.aws/config"
 }
