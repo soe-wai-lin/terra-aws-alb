@@ -15,11 +15,12 @@ resource "aws_launch_configuration" "terra-test" {
   
 resource "aws_autoscaling_group" "asg" {
   launch_configuration = aws_launch_configuration.terra-test.name
-  vpc_zone_identifier = data.aws_subnets.default.ids
+  vpc_zone_identifier = data.aws_subnets.terra_vpc.ids
   target_group_arns = [aws_lb_target_group.lb.arn]
   health_check_type = "ELB"
   min_size = var.min_size
   max_size = var.max_size
+  desired_capacity          = var.desired_capacity
   tag {
     key = "Name"
     value = "${var.cluster_name}-asg"
@@ -29,24 +30,31 @@ resource "aws_autoscaling_group" "asg" {
 }
 resource "aws_security_group" "instance-sg" {
   name =  "${var.cluster_name}-sg"  
+  vpc_id = aws_vpc.terra_vpc.id
 }
 
 
-data "aws_vpc" "default" {
-  default = true
+data "aws_vpc" "terra_vpc" {
+  default = false
+  id = aws_vpc.terra_vpc.id
+  # depends_on = [ aws_vpc.terra_vpc ]
 }
 
-data "aws_subnets" "default" {
+# data "aws_subnet" "pub" {
+#   id = aws_subnet.terra_vpc_pub_01.id
+# }
+
+data "aws_subnets" "terra_vpc" {
   filter {
     name = "vpc-id"
-    values = [data.aws_vpc.default.id]
+    values = [data.aws_vpc.terra_vpc.id]
   }
 }
 
 resource "aws_lb" "lb" {
   name = "${var.cluster_name}-lb"
   load_balancer_type = "application"
-  subnets = data.aws_subnets.default.ids
+  subnets = [aws_subnet.terra_vpc_pub_01.id, aws_subnet.terra_vpc_pub_02.id]
   security_groups = [aws_security_group.alb.id]
 }
 
@@ -74,7 +82,8 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_security_group" "alb" {
-  name = "${var.cluster_name}-alb"   
+  name = "${var.cluster_name}-alb" 
+  vpc_id = aws_vpc.terra_vpc.id  
 }
 
 resource "aws_security_group_rule" "allow_server_http_inbound" {
@@ -109,7 +118,7 @@ resource "aws_lb_target_group" "lb" {
   name = "${var.cluster_name}-lb"
   port = var.server_port
   protocol = "HTTP"
-  vpc_id = data.aws_vpc.default.id
+  vpc_id = data.aws_vpc.terra_vpc.id
   health_check {
     path = "/"
     protocol = "HTTP"

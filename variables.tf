@@ -42,11 +42,56 @@ variable "instance_type" {
 variable "min_size" {
   description = "The minimum number of EC2 Instances in the ASG"
   type = number
-  default = 2
+  default = 1
 }
 
 variable "max_size" {
   description = "The maximum number of EC2 Instances in the ASG"
   type = number
   default = 2
+}
+
+variable "desired_capacity" {
+  description = "The desired number of EC2 Instances in the ASG"
+  type = number
+  default = 2
+}
+
+variable "vpc_name" {
+  default = "terra_vpc"
+}
+
+variable "vpc_cidr_block" {
+  default = "20.0.0.0/16"
+  type = string
+}
+
+variable "pub_sub_01" {
+  default = "20.0.1.0/24"
+  type = string
+}
+
+variable "pub_sub_02" {
+  default = "20.0.2.0/24"
+  type = string
+}
+
+variable "priv_sub_01" {
+  default = "20.0.10.0/24"
+  type = string
+}
+
+variable "priv_sub_02" {
+  default = "20.0.11.0/24"
+  type = string
+}
+
+variable "data_sub_01" {
+  default = "20.0.20.0/24"
+  type = string
+}
+
+variable "data_sub_02" {
+  default = "20.0.21.0/24"
+  type = string
 }
