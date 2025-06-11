@@ -55,9 +55,9 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
-      # Step 7: Generate a Terraform plan
-      - name: Terraform Plan
-        run: terraform plan 
+      # # Step 7: Generate a Terraform plan
+      # - name: Terraform Plan
+      #   run: terraform plan 
 
       # Step 8: Apply Terraform changes
       - name: Terraform Apply
