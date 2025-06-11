@@ -1,0 +1,44 @@
+#Name of the workflow displayed in the GitHub Actions UI
+name: Terraform AWS Resource Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Type "true" to confirm resource destruction. This action is irreversible!'
+        required: true
+        type: boolean
+        default: false # Default to false to prevent accidental triggers
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform_destroy:
+    runs-on: ubuntu-latest
+
+    if: github.event.inputs.confirm_destroy == 'true'
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # Specify the AWS region where your resources were deployed
+          aws-region: ap-southeast-1 # IMPORTANT: Change this to your actual AWS region
+
+          role-to-assume: arn:aws:iam::851725184910:role/github-action
+          audience: sts.amazonaws.com
+
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0 # Ensure this matches your Terraform configuration
+
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -input=false
