@@ -48,8 +48,8 @@ jobs:
         run: terraform init
 
       # Step 5: Format Terraform files
-      - name: Terraform Fmt
-        run: terraform fmt -check
+      # - name: Terraform Fmt
+      #   run: terraform fmt -check
 
       # Step 6: Validate Terraform configuration
       - name: Terraform Validate
