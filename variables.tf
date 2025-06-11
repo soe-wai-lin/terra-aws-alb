@@ -1,7 +1,7 @@
-variable "aws_profile" {
-  type        = string
-  description = "Check this profile name in ~/.aws/config"
-}
+# variable "aws_profile" {
+#   type        = string
+#   description = "Check this profile name in ~/.aws/config"
+# }
 
 variable "aws_region" {
   default = "ap-southeast-1"
