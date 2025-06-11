@@ -1,5 +1,5 @@
 resource "aws_vpc" "terra_vpc" {
-  cidr_block = var.vpc_cidr_block
+  cidr_block       = var.vpc_cidr_block
   instance_tenancy = "default"
   tags = {
     Name = var.vpc_name
@@ -7,8 +7,8 @@ resource "aws_vpc" "terra_vpc" {
 }
 
 resource "aws_subnet" "terra_vpc_pub_01" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.pub_sub_01
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.pub_sub_01
   availability_zone = "ap-southeast-1a"
 
   tags = {
@@ -17,8 +17,8 @@ resource "aws_subnet" "terra_vpc_pub_01" {
 }
 
 resource "aws_subnet" "terra_vpc_pub_02" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.pub_sub_02
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.pub_sub_02
   availability_zone = "ap-southeast-1b"
 
   tags = {
@@ -27,8 +27,8 @@ resource "aws_subnet" "terra_vpc_pub_02" {
 }
 
 resource "aws_subnet" "terra_vpc_priv_01" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.priv_sub_01
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.priv_sub_01
   availability_zone = "ap-southeast-1a"
 
   tags = {
@@ -37,8 +37,8 @@ resource "aws_subnet" "terra_vpc_priv_01" {
 }
 
 resource "aws_subnet" "terra_vpc_priv_02" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.priv_sub_02
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.priv_sub_02
   availability_zone = "ap-southeast-1b"
 
   tags = {
@@ -47,8 +47,8 @@ resource "aws_subnet" "terra_vpc_priv_02" {
 }
 
 resource "aws_subnet" "terra_vpc_data_01" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.data_sub_01
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.data_sub_01
   availability_zone = "ap-southeast-1a"
 
   tags = {
@@ -57,8 +57,8 @@ resource "aws_subnet" "terra_vpc_data_01" {
 }
 
 resource "aws_subnet" "terra_vpc_data_02" {
-  vpc_id     = aws_vpc.terra_vpc.id
-  cidr_block = var.data_sub_02
+  vpc_id            = aws_vpc.terra_vpc.id
+  cidr_block        = var.data_sub_02
   availability_zone = "ap-southeast-1b"
 
   tags = {
