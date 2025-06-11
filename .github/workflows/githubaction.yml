@@ -7,6 +7,8 @@ on:
     # Trigger the workflow on pushes to the 'main' branch
     branches:
       - dev
+  workflow_dispatch:
+  
 
 permissions:
   contents: read
@@ -61,4 +63,4 @@ jobs:
 
       # Step 8: Apply Terraform changes
       - name: Terraform Apply
-        run: terraform destroy -auto-approve 
+        run: terraform apply -auto-approve 
