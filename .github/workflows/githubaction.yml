@@ -7,7 +7,6 @@ on:
     # Trigger the workflow on pushes to the 'main' branch
     branches:
       - dev
-  workflow_dispatch:
   
 
 permissions:
